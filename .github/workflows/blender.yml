@@ -20,3 +20,9 @@ jobs:
           tar -xf blender.tar.xz
       - name: Check topology, source reload, and reproducibility
         run: python3 scripts/smoke_blender.py "$RUNNER_TEMP/blender-4.5.3-linux-x64/blender"
+      - name: Check offline web exports
+        run: |
+          python3 -m venv "$RUNNER_TEMP/gl-web"
+          "$RUNNER_TEMP/gl-web/bin/pip" install -r requirements-web.txt
+          "$RUNNER_TEMP/gl-web/bin/python" -m unittest discover -s tests -v
+          "$RUNNER_TEMP/gl-web/bin/python" scripts/export_web.py generated/original

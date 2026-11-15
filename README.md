@@ -87,6 +87,38 @@ python3 -m gl_assets generate original --backend preview --output-dir /tmp/gl-dr
 
 Drafts omit the .blend and bevels; final assets use Blender.
 
+## Static website exports
+
+The header consumes a prebuilt 128×208 RGBA image displayed at 32×52 CSS pixels
+(28×45.5 on narrow phones), alongside the owner's name. Derive PNG and WebP from
+the actual three-quarter render, with aspect ratio preserved and metadata removed:
+
+```sh
+python3 -m venv .venv
+.venv/bin/pip install -r requirements-web.txt
+.venv/bin/python scripts/export_web.py generated/original
+```
+
+After changing the model, first rerun `python3 -m gl_assets generate original`,
+then rerun the export command. Blender regeneration replaces the entire variant
+directory, including old web exports. Pillow 12.0.0 is needed only for this offline
+derivation; Jekyll never installs it. Outputs live in `generated/original/web/`:
+transparent `gl-mark.png`, quality-88 `gl-mark.webp`, `favicon.svg`, and an export
+report with dimensions, encoder, crop, source-render hash, sizes and output hashes.
+The build manifest is updated with derived-file hashes. `review/` contains a
+three-view contact sheet and a native-size/4× legibility sheet.
+
+The full sculpture's foot and depth become weak at 16–32 pixels. The favicon
+therefore uses a deliberately simplified, hard-edged SVG from the original
+variant's source: its G retains the three clear gaps and only its right stem
+descends, with a short diagonal foot. SVG colors respond to the browser's light
+or dark preference. This is an optical simplification, not another 3D variant.
+
+Copy only the reviewed PNG/WebP/SVG into the website, preserving this source
+repository's commit and SHA-256 provenance. Do not copy .blend files, generator
+code, references, or review images into the website's published assets. Review
+header screenshots before merging or publishing the integration.
+
 ## Add a variant
 
 Create `gl_assets/variants/<unique-kebab-case-name>/config.json` and `builder.py`.
