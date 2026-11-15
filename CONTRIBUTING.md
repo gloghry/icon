@@ -81,8 +81,8 @@ python3 -m unittest discover -s tests -v
 git diff --check
 ```
 
-CI runs tests on Python 3.10 and 3.14. Asset-specific checks belong with the asset
-implementation; do not require an unmerged generator in this setup change.
+CI runs the standard library tests on Python 3.10 and 3.14. The Blender job also
+installs the pinned offline image-export dependency and runs its checks.
 
 The offline GL generator is documented in [README.md](README.md). The Blender
 workflow downloads checksum-pinned Blender 4.5.3 LTS, checks two seeded builds
@@ -93,12 +93,12 @@ The `PR policy / Issue and change-type label` workflow validates PR metadata
 using only default-branch code, without checking out or running PR code. It checks
 that at least one referenced local issue exists and is an issue rather than a PR,
 and that exactly one catalog label is applied. It reruns when descriptions or
-labels change. Because this workflow uses `pull_request_target`, it starts only
-after the workflow is merged into the default branch; validate the first setup
-PR manually with the same script.
+labels change. This workflow uses `pull_request_target` and the trusted
+default-branch copy of the checker, never code supplied by the PR.
 
 The existing ruleset requires PRs, squash merging, and blocks deletion and force
-pushes, with no bypass actors. It currently requires zero reviewer approvals and
-no status checks. After CI has run, the owner can require `Tests (3.10)`,
-`Tests (3.14)`, and `Issue and change-type label` in that ruleset. Preserve all
-other protections. This PR does not change those repository settings.
+pushes, with no bypass actors. It requires `Tests (3.10)`, `Tests (3.14)`, and
+`Issue and change-type label`, with the branch up to date before merging. The
+owner authorized enabling those checks after setup PR #3 merged. The existing
+reviewer-approval count remains zero. Preserve these protections; further
+repository-setting changes require explicit owner authorization.
