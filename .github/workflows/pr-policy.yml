@@ -1,0 +1,22 @@
+name: PR policy
+on:
+  pull_request_target:
+    types: [opened, edited, reopened, synchronize, labeled, unlabeled, ready_for_review]
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+jobs:
+  policy:
+    name: Issue and change-type label
+    runs-on: ubuntu-latest
+    steps:
+      # Only trusted base-branch code is checked out. Never use the PR head here.
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+      - name: Validate current PR metadata
+        run: python3 scripts/check_pr.py
+        env:
+          GH_TOKEN: ${{ github.token }}
