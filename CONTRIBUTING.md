@@ -84,6 +84,11 @@ git diff --check
 CI runs tests on Python 3.10 and 3.14. Asset-specific checks belong with the asset
 implementation; do not require an unmerged generator in this setup change.
 
+The offline GL generator is documented in [README.md](README.md). The Blender
+workflow downloads checksum-pinned Blender 4.5.3 LTS, checks two seeded builds
+for identical GLB/metadata/PNG output, and reopens the .blend to verify its solid
+and silhouette. Run `python3 scripts/smoke_blender.py /path/to/blender` locally.
+
 The `PR policy / Issue and change-type label` workflow validates PR metadata
 using only default-branch code, without checking out or running PR code. It checks
 that at least one referenced local issue exists and is an issue rather than a PR,

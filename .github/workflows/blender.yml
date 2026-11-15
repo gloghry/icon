@@ -1,0 +1,22 @@
+name: Blender
+on:
+  pull_request:
+  push:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  blender:
+    name: Blender smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Download and verify pinned Blender
+        working-directory: ${{ runner.temp }}
+        run: |
+          curl --fail --location --retry 3 -o blender.tar.xz https://mirror.blender.org/release/Blender4.5/blender-4.5.3-linux-x64.tar.xz
+          echo '975c58fcb244273838534bba771e64ad87739216b0f9b39a888531a49a72d845  blender.tar.xz' | sha256sum --check
+          tar -xf blender.tar.xz
+      - name: Check topology, source reload, and reproducibility
+        run: python3 scripts/smoke_blender.py "$RUNNER_TEMP/blender-4.5.3-linux-x64/blender"

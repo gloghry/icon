@@ -1,0 +1,24 @@
+{
+  "glb_axes": {
+    "authoring_to_gltf": "(x, y, z) -> (x, z, -y)",
+    "up": "+Y"
+  },
+  "outputs": [
+    "png",
+    "glb",
+    "metadata",
+    "blend"
+  ],
+  "schema_version": 1,
+  "seed": 42,
+  "sha256": {
+    "asset.blend": "78f8b846a4a9f9dd2a7fa6a4087f4a3b5dc3b49d1d109ba8102fc41fb1c42426",
+    "asset.glb": "6a5eb9c9a89481f6ec267afdd471ccae58933490e7fb6282ee43e0e0985bc744",
+    "config.json": "9758d961f180850356f1a92bb06db2fb2d5fb67a01a0d11c3d63161ec479e177",
+    "metadata.json": "127a575560ae67630e5771cc9ac4f9317e0349f9c9bf45799d124979984ea113",
+    "renders/front.png": "06862f2916c6a46bcf683e647f18884faac83cd647b14cb21c4aaf6e7c6236fd",
+    "renders/isometric.png": "317fc1c11b9e292b19e6db1ca98d5d117f252c5601e835d9fd59693c681fff78",
+    "renders/side.png": "fca2aa8eb3faa9198292293b473df2f382b6f020a7605fc08b1eedb5674c06f5"
+  },
+  "variant": "original"
+}
