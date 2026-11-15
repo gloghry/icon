@@ -12,19 +12,19 @@
   "schema_version": 1,
   "seed": 42,
   "sha256": {
-    "asset.blend": "78f8b846a4a9f9dd2a7fa6a4087f4a3b5dc3b49d1d109ba8102fc41fb1c42426",
-    "asset.glb": "6a5eb9c9a89481f6ec267afdd471ccae58933490e7fb6282ee43e0e0985bc744",
-    "config.json": "9758d961f180850356f1a92bb06db2fb2d5fb67a01a0d11c3d63161ec479e177",
-    "metadata.json": "127a575560ae67630e5771cc9ac4f9317e0349f9c9bf45799d124979984ea113",
-    "renders/front.png": "06862f2916c6a46bcf683e647f18884faac83cd647b14cb21c4aaf6e7c6236fd",
-    "renders/isometric.png": "317fc1c11b9e292b19e6db1ca98d5d117f252c5601e835d9fd59693c681fff78",
-    "renders/side.png": "fca2aa8eb3faa9198292293b473df2f382b6f020a7605fc08b1eedb5674c06f5",
-    "review/previews.png": "4f26a2982b164baf4705186c854b9e733bb7d5c8d7eb970837f4be5aa684c059",
-    "review/small-sizes.png": "650dd96317f7aeb7b715a3951862ee6d4e9878b0de56dc466e9ed231e0de490e",
-    "web/export.json": "d4fed76dea9216f59c6b0bea8c953c7fadfca8d716d7c7b6512588b12476961b",
+    "asset.blend": "487f1071e8eadbd1bce16a06698a449f9b845e89bd605fca2c73b32ff8da10ad",
+    "asset.glb": "ce7ff40efc65b82c0174c1e7867a042a892c311736a6a81a16be1b8aa82fb794",
+    "config.json": "69ecba3bf1dacded6155f7ef1598a8503c15290a24712ce75c4f0807c9b44580",
+    "metadata.json": "b355df16a75cb05333945cea65490447ad4301b053f426e61ff21864aa22b992",
+    "renders/front.png": "0e587a4c998899f213d133677aaeb308610277d53481b9882c8179493bd2e145",
+    "renders/isometric.png": "772b00f5258aafd9ee39b03db9919206edff1fc71fc6499e6d8de8487975fafd",
+    "renders/side.png": "6c905c5cc484113d59778e943d4a731a683458d78086f75914645829c2b8d5d6",
+    "review/previews.png": "d2a167ca04eeccebc9137ec5f468cd5a8453433d6d95636cfb6a32888589ea38",
+    "review/small-sizes.png": "887b556625531f4b78917cd40253950fe6de4c585f9114ae24204a67b1940cf2",
+    "web/export.json": "eb596bdfff93d7b43cb8bab2ddadf966c0ee348075a3450265a83406564d45e6",
     "web/favicon.svg": "fc9dfac04db9ff20603c401a4c49ad0f41fed62d3708daa763f590fd493d80a7",
-    "web/gl-mark.png": "2920a0fbc66d862a362570d1605a51e320816b326c8cc5bd2e431789e5b7b656",
-    "web/gl-mark.webp": "8761a61910e46d68cd7d72ea4117838ab30df27b68ec80c8f9dc73ebb83cb881"
+    "web/gl-mark.png": "f41aa13ca7033b3cb0824c3a72a1728b7cc49b2ce81600d3488522773875dff6",
+    "web/gl-mark.webp": "0f22eb6261f3c6efc82a0241234cecb98241912013ab29d5e1e7e2bc0011b964"
   },
   "variant": "original"
 }

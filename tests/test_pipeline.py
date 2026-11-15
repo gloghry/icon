@@ -49,7 +49,7 @@ class PipelineTests(unittest.TestCase):
         for view in doc["bufferViews"]:
             self.assertEqual(view["byteOffset"] % 4, 0)
             self.assertLessEqual(view["byteOffset"] + view["byteLength"], binary_length)
-        self.assertEqual(doc["accessors"][0]["min"], [0, 0, -3])
+        self.assertEqual(doc["accessors"][0]["min"], [0, 0, -3.6])
         self.assertEqual(doc["accessors"][0]["max"], [4.5, 8, 0])
         png = before["renders/isometric.png"]
         self.assertEqual(png[:8], b"\x89PNG\r\n\x1a\n")
