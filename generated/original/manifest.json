@@ -1,0 +1,30 @@
+{
+  "glb_axes": {
+    "authoring_to_gltf": "(x, y, z) -> (x, z, -y)",
+    "up": "+Y"
+  },
+  "outputs": [
+    "png",
+    "glb",
+    "metadata",
+    "blend"
+  ],
+  "schema_version": 1,
+  "seed": 42,
+  "sha256": {
+    "asset.blend": "487f1071e8eadbd1bce16a06698a449f9b845e89bd605fca2c73b32ff8da10ad",
+    "asset.glb": "ce7ff40efc65b82c0174c1e7867a042a892c311736a6a81a16be1b8aa82fb794",
+    "config.json": "69ecba3bf1dacded6155f7ef1598a8503c15290a24712ce75c4f0807c9b44580",
+    "metadata.json": "b355df16a75cb05333945cea65490447ad4301b053f426e61ff21864aa22b992",
+    "renders/front.png": "0e587a4c998899f213d133677aaeb308610277d53481b9882c8179493bd2e145",
+    "renders/isometric.png": "772b00f5258aafd9ee39b03db9919206edff1fc71fc6499e6d8de8487975fafd",
+    "renders/side.png": "6c905c5cc484113d59778e943d4a731a683458d78086f75914645829c2b8d5d6",
+    "review/previews.png": "d2a167ca04eeccebc9137ec5f468cd5a8453433d6d95636cfb6a32888589ea38",
+    "review/small-sizes.png": "887b556625531f4b78917cd40253950fe6de4c585f9114ae24204a67b1940cf2",
+    "web/export.json": "eb596bdfff93d7b43cb8bab2ddadf966c0ee348075a3450265a83406564d45e6",
+    "web/favicon.svg": "fc9dfac04db9ff20603c401a4c49ad0f41fed62d3708daa763f590fd493d80a7",
+    "web/gl-mark.png": "f41aa13ca7033b3cb0824c3a72a1728b7cc49b2ce81600d3488522773875dff6",
+    "web/gl-mark.webp": "0f22eb6261f3c6efc82a0241234cecb98241912013ab29d5e1e7e2bc0011b964"
+  },
+  "variant": "original"
+}

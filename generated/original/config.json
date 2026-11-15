@@ -1,0 +1,45 @@
+{
+  "dimensions": {
+    "bevel_size": 0.025,
+    "depth": 1.0,
+    "g_elevation": 3.0,
+    "g_height": 5.0,
+    "g_width": 4.5,
+    "inner_bar_length": 2.25,
+    "l_length": 3.6,
+    "stroke": 1.0
+  },
+  "material": {
+    "color": [
+      0.25,
+      0.33,
+      0.47,
+      1.0
+    ],
+    "metallic": 0.15,
+    "name": "sculpture-blue-gray",
+    "roughness": 0.5
+  },
+  "name": "original",
+  "outputs": [
+    "png",
+    "glb",
+    "metadata",
+    "blend"
+  ],
+  "render": {
+    "camera": {
+      "azimuth_degrees": 20.0,
+      "elevation_degrees": 18.0
+    },
+    "cameras": [
+      "front",
+      "side",
+      "isometric"
+    ],
+    "padding": 0.08,
+    "samples": 48,
+    "size": 640
+  },
+  "seed": 42
+}
