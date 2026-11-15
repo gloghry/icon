@@ -1,0 +1,51 @@
+name: Work item
+description: Track a bug, feature, or maintenance task before making changes.
+body:
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue type
+      description: Also set the matching native issue type during triage.
+      options: [Bug, Feature, Task]
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and expected result
+      description: State the problem, intended outcome, and acceptance criteria.
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Temporary fallback; set the native Priority field during triage.
+      options: [Urgent, High, Medium, Low]
+    validations:
+      required: true
+  - type: dropdown
+    id: effort
+    attributes:
+      label: Effort
+      description: Set the native Effort field during triage; assess separately from priority.
+      options: [Low, Medium, High]
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies and missing inputs
+      description: Identify blockers and prerequisites, or state None.
+    validations:
+      required: true
+  - type: input
+    id: start-date
+    attributes:
+      label: Start date
+      description: YYYY-MM-DD; leave blank until work actually starts. Set the native field then.
+  - type: input
+    id: target-date
+    attributes:
+      label: Target date
+      description: YYYY-MM-DD; leave blank unless a target has been established.

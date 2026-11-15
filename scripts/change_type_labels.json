@@ -1,0 +1,6 @@
+{
+  "bug": "Fix incorrect behavior",
+  "enhancement": "Add or improve functionality",
+  "documentation": "Documentation or editorial changes",
+  "maintenance": "Workflow, CI, tooling, configuration, or repository upkeep"
+}
