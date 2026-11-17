@@ -29,8 +29,14 @@
   ],
   "render": {
     "camera": {
-      "azimuth_degrees": 20.0,
-      "elevation_degrees": 18.0
+      "azimuth_degrees": 41.066474578585115,
+      "elevation_degrees": 10.266492855655851,
+      "ortho_scale": 9.947062492370605,
+      "target": [
+        2.402557373046875,
+        1.7433109283447266,
+        3.594351291656494
+      ]
     },
     "cameras": [
       "front",

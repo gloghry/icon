@@ -56,6 +56,15 @@ python3 -m gl_assets generate original --config /tmp/original.json \
   --seed 42 --output-dir /tmp/gl-assets --blender /path/to/blender
 ```
 
+The original baseline uses Garett’s saved Blender view: **41.066475° azimuth and
+10.266493° elevation**. The configuration retains full precision, along with
+the saved framing target and orthographic span.
+
+Blender is the preferred angle-exploration workflow for now; interactive slider
+controls remain a later task (#9). Saving a manually edited `.blend` does not
+update the generator configuration. Record the selected camera in the variant
+config before regenerating, since builds replace the generated `.blend`.
+
 `--config` is a full replacement for one named variant. `--seed` overrides its
 seed. The original exposes:
 
@@ -68,6 +77,7 @@ seed. The original exposes:
 | `l_length` | Overall +Y foot length including the stem depth |
 | `bevel_size` | Small edge radius; 0–10% of stroke, default 0.025 |
 | `render.camera` | Three-quarter azimuth from -Y toward +X, and elevation, in degrees |
+| `render.camera.target`, `ortho_scale` | Optional saved Z-up framing target and orthographic vertical span; supply both, omit both for automatic fitting |
 | `render.size`, `samples`, `padding` | Square preview resolution, Cycles samples, margin fraction |
 
 The inner bar is centered vertically in the G opening. G width/height must
