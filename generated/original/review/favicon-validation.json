@@ -1,0 +1,56 @@
+{
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "159.0.8154.6",
+      "scheme": "light",
+      "sizes": [
+        16,
+        24,
+        32,
+        48
+      ],
+      "deviceScaleFactor": 1,
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "version": "159.0.8154.6",
+      "scheme": "dark",
+      "sizes": [
+        16,
+        24,
+        32,
+        48
+      ],
+      "deviceScaleFactor": 1,
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "scheme": "light",
+      "sizes": [
+        16,
+        24,
+        32,
+        48
+      ],
+      "deviceScaleFactor": 1,
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "scheme": "dark",
+      "sizes": [
+        16,
+        24,
+        32,
+        48
+      ],
+      "deviceScaleFactor": 1,
+      "passed": true
+    }
+  ]
+}

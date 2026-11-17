@@ -121,8 +121,30 @@ three-view contact sheet and a native-size/4× legibility sheet.
 The full sculpture's foot and depth become weak at 16–32 pixels. The favicon
 therefore uses a deliberately simplified, hard-edged SVG from the original
 variant's source: its G retains the three clear gaps and only its right stem
-descends, with a short diagonal foot. SVG colors respond to the browser's light
+descends, with a horizontal foot extending right in the same plane as the G,
+following Garett's flat monogram reference (#15). The 32-unit square uses a
+four-unit stroke, three-unit vertical G gaps, and four units of clearance at
+the inner bar's tip. SVG colors respond to the browser's light
 or dark preference. This is an optical simplification, not another 3D variant.
+
+Edit `gl_assets/variants/original/favicon.svg`, then rerun the offline export
+command above to copy it and update the web report/manifest; no Blender rebuild
+is needed for a favicon-only edit. Review its actual 16/24/32/48 px comparisons
+on both backgrounds in `generated/original/review/favicon-light.png` and
+`favicon-dark.png`. Those sheets are browser captures of the SVG, with a
+separately labeled enlarged view; the sculpture/header images stay unchanged.
+
+To regenerate those browser comparisons (optional authoring tools, separate from
+the asset generator and website):
+
+```sh
+npm install --prefix /tmp/gl-favicon-tools playwright@1.65.1
+/tmp/gl-favicon-tools/node_modules/.bin/playwright install chromium webkit
+NODE_PATH=/tmp/gl-favicon-tools/node_modules node scripts/review_favicon.cjs
+```
+
+The script updates the comparison hashes in the manifest and compares the preserved `reference/favicon-before.svg` with the current
+source. `reference/flat-monogram.png` is Garett's supplied design reference.
 
 Copy only the reviewed PNG/WebP/SVG into the website, preserving the source
 repository, asset commit, source directory and SHA-256 content hashes. Do not copy

@@ -10,8 +10,8 @@
   "encoder": "Pillow 12.0.0",
   "files": {
     "favicon.svg": {
-      "bytes": 243,
-      "sha256": "fc9dfac04db9ff20603c401a4c49ad0f41fed62d3708daa763f590fd493d80a7"
+      "bytes": 236,
+      "sha256": "34e514e0c65acf7a465d3a1ea66a24f43c43f6dac8b3c799df3412478aabbec6"
     },
     "gl-mark.png": {
       "bytes": 14704,
