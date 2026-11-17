@@ -1,4 +1,5 @@
 import copy
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -8,7 +9,7 @@ import unittest
 from unittest.mock import patch
 from urllib.parse import parse_qs, unquote
 
-from scripts.export_website import FILES, ROOT, load_export, stage
+from scripts.export_website import FILES, ROOT, load_export, stage, source_revision
 from scripts.publish_website import APIError, MARKER, PREFIX, PRIORITY_FIELD, WEBSITE, blob_sha, publish, push_candidate
 
 SHA = 'a' * 40
@@ -102,7 +103,7 @@ class WebsitePublisherTests(unittest.TestCase):
         self.root = Path(self.temporary.name)
         self.bundle = self.root / 'export'
         self.config = json.loads((ROOT / 'gl_assets/variants/original/config.json').read_text())
-        self.files = stage(ROOT / 'generated/original', self.bundle, self.config)
+        self.files = stage(ROOT / 'generated/original', self.bundle, self.config, SHA)
         self.api = Website()
 
     def publish(self, source=None):
@@ -115,13 +116,16 @@ class WebsitePublisherTests(unittest.TestCase):
         return {'number': number, 'state': state, 'body': body,
                 'head': {'ref': branch, 'repo': {'full_name': WEBSITE}}}
 
-    def test_exact_bundle_reproducible_and_no_source_revision(self):
+    def test_exact_bundle_reproducible_with_source_identity(self):
         self.assertEqual(set(self.files), set(FILES))
         other = self.root / 'again'
-        self.assertEqual(self.files, stage(ROOT / 'generated/original', other, self.config))
+        self.assertEqual(self.files, stage(ROOT / 'generated/original', other, self.config, SHA))
         self.assertEqual(load_export(self.bundle)[1], load_export(other)[1])
         provenance = json.loads(self.files['docs/gl-mark-provenance.json'])
-        self.assertNotIn('source_commit', provenance)
+        self.assertEqual(provenance['source_commit'], SHA)
+        self.assertEqual(provenance['source_repository'], 'https://github.com/gloghry/icon')
+        self.assertEqual(provenance['source_directory'], 'generated/original/web')
+        self.assertIn(SHA.encode(), self.files['docs/gl-mark.md'])
         self.assertFalse(any(p.suffix in ('.blend', '.glb', '.py') for p in self.bundle.rglob('*')))
 
     def test_missing_extra_tampered_and_symlink_rejected(self):
@@ -141,18 +145,66 @@ class WebsitePublisherTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     load_export(folder)
 
+    def test_missing_source_identity_rejected_even_with_updated_manifest(self):
+        name = 'docs/gl-mark-provenance.json'
+        path = self.bundle / name
+        provenance = json.loads(path.read_text())
+        del provenance['source_commit']
+        path.write_text(json.dumps(provenance))
+        manifest_path = self.bundle / 'manifest.json'
+        manifest = json.loads(manifest_path.read_text())
+        manifest['files'][name] = hashlib.sha256(path.read_bytes()).hexdigest()
+        manifest_path.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(ValueError, 'source commit'):
+            load_export(self.bundle)
+
+    def test_asset_revision_survives_publisher_changes_and_rejects_dirty_exports(self):
+        root = self.root / 'history'
+        root.mkdir()
+
+        def git(*args):
+            return subprocess.run(['git', *args], cwd=root, check=True,
+                                  capture_output=True, text=True).stdout.strip()
+
+        def commit(message):
+            git('add', '.')
+            git('-c', 'user.name=Test', '-c', 'user.email=test@example.invalid',
+                'commit', '-m', message)
+            return git('rev-parse', 'HEAD')
+
+        git('init')
+        assets = root / 'generated/original'
+        assets.mkdir(parents=True)
+        mark = assets / 'test.png'
+        mark.write_bytes(b'approved asset')
+        approved = commit('Approved asset')
+        (root / 'publisher.py').write_text('Publisher-only change')
+        commit('Update publisher')
+        self.assertEqual(source_revision(root), approved)
+        mark.write_bytes(b'new asset')
+        with self.assertRaisesRegex(ValueError, 'Commit regenerated'):
+            source_revision(root)
+        changed = commit('New asset')
+        self.assertNotEqual(changed, approved)
+        self.assertEqual(source_revision(root), changed)
+        shallow = self.root / 'shallow'
+        subprocess.run(['git', 'clone', '--depth', '1', root.as_uri(), str(shallow)],
+                       check=True, capture_output=True)
+        with self.assertRaisesRegex(ValueError, 'Full asset history'):
+            source_revision(shallow)
+
     def test_staging_refuses_stale_config_hash_and_existing_directory(self):
         config = copy.deepcopy(self.config)
         config['seed'] += 1
         with self.assertRaisesRegex(ValueError, 'config'):
-            stage(ROOT / 'generated/original', self.root / 'bad-config', config)
+            stage(ROOT / 'generated/original', self.root / 'bad-config', config, SHA)
         with self.assertRaisesRegex(ValueError, 'not exist'):
-            stage(ROOT / 'generated/original', self.bundle, self.config)
+            stage(ROOT / 'generated/original', self.bundle, self.config, SHA)
         source = self.root / 'source'
         shutil.copytree(ROOT / 'generated/original', source)
         (source / 'web/gl-mark.png').write_bytes(b'tampered')
         with self.assertRaisesRegex(ValueError, 'manifest'):
-            stage(source, self.root / 'bad-hash', self.config)
+            stage(source, self.root / 'bad-hash', self.config, SHA)
 
     def test_atomic_allowlisted_proposal_and_supersession(self):
         old = self.proposal(PREFIX + 'old')

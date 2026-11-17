@@ -23,8 +23,9 @@ website imports reference [website issue #86](https://github.com/gloghry/gloghry
 
 3. A seven-day review artifact holds those files and an integrity manifest.
    No `.blend`, GLB, source tree, reference or build log is uploaded by this
-   workflow. Public provenance records content hashes and camera settings,
-   without source revision IDs, source links or workflow URLs.
+   workflow. Public provenance records the source repository, immutable asset
+   commit, source directory, content hashes and camera settings, as required by
+   the website rights inventory. It omits workflow URLs.
 4. Only an enabled master push/manual run enters the separate publishing job.
    It receives a website-scoped PAT and a separate read-only source token to
    reject stale runs. PRs, forks and manual non-master runs cannot publish.
@@ -38,14 +39,18 @@ website imports reference [website issue #86](https://github.com/gloghry/gloghry
    `docs/gl-mark-review/` are not updated by it.
 
 The icon repository can be private: its own workflow reads it, while the website
-receives only the selected public bundle. No website-side source token, polling,
-Blender runtime or viewer is added. Visibility, access controls, branch
+receives only the selected public bundle. The source repository name, asset
+commit and directory remain public provenance; source content and credentials
+are not copied. Omitting those identifiers would require a separately reviewed
+change to the website's rights/provenance policy. No website-side source token,
+polling, Blender runtime or viewer is added. Visibility, access controls, branch
 protection and hosting remain unchanged.
 
 ## Local review
 
 Use Python 3.10+ from the icon repository root. Staging and dry-run need no
-credentials, network, Blender or imaging library:
+credentials, network, Blender or imaging library. Git and the committed asset
+history must be available:
 
 ```sh
 python3 -m unittest discover -s tests -v
@@ -59,6 +64,14 @@ allowlist and content digest without contacting GitHub. Tests include real git
 commits against a temporary local bare remote, confirming that only a candidate
 branch changes and unrelated website files survive. Existing Blender CI checks
 the model; installing requirements-web.txt also enables image conversion tests.
+
+The exporter identifies the last commit that changed `generated/original`,
+using a full-history checkout. That immutable commit includes the generated
+files and corresponding source at that revision. Later publisher-only changes
+do not churn the public source commit or open duplicate asset PRs. Uncommitted
+generated changes are rejected: regenerate, review and commit them first. The
+separate workflow run SHA is used only to reject stale runs, not as the asset's
+provenance identity.
 
 ## One-time setup after reviewing the implementation
 
