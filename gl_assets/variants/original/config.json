@@ -1,7 +1,12 @@
 {
   "name": "original",
   "seed": 42,
-  "outputs": ["png", "glb", "metadata", "blend"],
+  "outputs": [
+    "png",
+    "glb",
+    "metadata",
+    "blend"
+  ],
   "dimensions": {
     "stroke": 1.0,
     "depth": 1.0,
@@ -14,14 +19,127 @@
   },
   "material": {
     "name": "sculpture-blue-gray",
-    "color": [0.25, 0.33, 0.47, 1.0],
-    "metallic": 0.15,
-    "roughness": 0.5
+    "color": [
+      0.3612537980079651,
+      0.4197659492492676,
+      0.4699498414993286,
+      1.0
+    ],
+    "metallic": 1.0,
+    "roughness": 0.3499999940395355,
+    "shader": {
+      "nodes": [
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "properties": {},
+          "location": [
+            200.0,
+            100.0
+          ]
+        },
+        {
+          "name": "Metallic BSDF",
+          "type": "ShaderNodeBsdfMetallic",
+          "inputs": {
+            "Base Color": [
+              0.3612537980079651,
+              0.4197659492492676,
+              0.4699498414993286,
+              1.0
+            ],
+            "Edge Tint": [
+              0.6866854429244995,
+              0.7681514024734497,
+              0.8549929261207581,
+              1.0
+            ],
+            "IOR": [
+              2.756999969482422,
+              2.513000011444092,
+              2.2309999465942383
+            ],
+            "Extinction": [
+              3.867000102996826,
+              3.4040000438690186,
+              3.009000062942505
+            ],
+            "Roughness": 0.3499999940395355,
+            "Anisotropy": 0.0,
+            "Rotation": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0
+          },
+          "properties": {
+            "distribution": "MULTI_GGX",
+            "fresnel_type": "F82"
+          },
+          "location": [
+            -200.0,
+            100.0
+          ]
+        },
+        {
+          "name": "Bevel",
+          "type": "ShaderNodeBevel",
+          "inputs": {
+            "Radius": 0.05000000074505806,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "properties": {
+            "samples": 4
+          },
+          "location": [
+            10.0,
+            42.0
+          ]
+        }
+      ],
+      "links": [
+        [
+          "Metallic BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ],
+        [
+          "Bevel",
+          "Normal",
+          "Material Output",
+          "Displacement"
+        ]
+      ]
+    }
   },
   "render": {
     "size": 640,
     "samples": 48,
-    "cameras": ["front", "side", "isometric"],
+    "cameras": [
+      "front",
+      "side",
+      "isometric"
+    ],
     "camera": {
       "azimuth_degrees": 41.066474578585115,
       "elevation_degrees": 10.266492855655851,
@@ -33,5 +151,142 @@
       "ortho_scale": 9.947062492370605
     },
     "padding": 0.08
+  },
+  "lighting": {
+    "world": {
+      "color": [
+        0.6499999761581421,
+        0.7200000286102295,
+        0.8500000238418579,
+        1.0
+      ],
+      "strength": 0.30000001192092896
+    },
+    "lights": [
+      {
+        "name": "Key softbox",
+        "type": "AREA",
+        "energy": 600.0,
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "shape": "RECTANGLE",
+        "size": 11.597023010253906,
+        "size_y": 0.5576543807983398,
+        "use_nodes": true,
+        "location": [
+          -0.8002930283546448,
+          -7.993298530578613,
+          7.810654640197754
+        ],
+        "rotation": [
+          4.966216087341309,
+          0.022047175094485283,
+          2.853954792022705
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "spread": 3.1415927410125732,
+        "normalize": true
+      },
+      {
+        "name": "Right fill",
+        "type": "AREA",
+        "energy": 250.0,
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "shape": "RECTANGLE",
+        "size": 5.0,
+        "size_y": 0.25,
+        "use_nodes": true,
+        "location": [
+          10.0,
+          2.0,
+          1.5
+        ],
+        "rotation": [
+          -4.852015018463135,
+          0.0,
+          1.5707963705062866
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "spread": 2.094395160675049,
+        "normalize": true
+      },
+      {
+        "name": "Rear edge",
+        "type": "AREA",
+        "energy": 900.0,
+        "color": [
+          0.162029430270195,
+          0.730461061000824,
+          0.6307573914527893
+        ],
+        "shape": "DISK",
+        "size": 5.0,
+        "size_y": 0.25,
+        "use_nodes": true,
+        "location": [
+          4.7714362144470215,
+          8.741783142089844,
+          7.645103931427002
+        ],
+        "rotation": [
+          1.1519173383712769,
+          0.017453251406550407,
+          -3.2288591861724854
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "spread": 2.356194496154785,
+        "normalize": true
+      },
+      {
+        "name": "Left fill",
+        "type": "AREA",
+        "energy": 150.0,
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "shape": "RECTANGLE",
+        "size": 8.234524726867676,
+        "size_y": 1.328445315361023,
+        "use_nodes": true,
+        "location": [
+          2.190077781677246,
+          -7.0558342933654785,
+          5.078186511993408
+        ],
+        "rotation": [
+          6.02138614654541,
+          -1.5707963705062866,
+          2.0071287155151367
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "spread": 0.7853981852531433,
+        "normalize": true
+      }
+    ]
   }
 }

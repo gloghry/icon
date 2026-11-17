@@ -10,6 +10,7 @@ class Material:
     color: tuple[float, float, float, float]
     metallic: float = 0.0
     roughness: float = 0.65
+    shader: dict | None = None
 
 
 @dataclass

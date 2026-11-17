@@ -12,13 +12,14 @@
   "schema_version": 1,
   "seed": 42,
   "sha256": {
-    "asset.blend": "10d5375b1a8c22163f42a7c4faf8300aada220455bbb0888ddcefc1c30b855eb",
-    "asset.glb": "ce7ff40efc65b82c0174c1e7867a042a892c311736a6a81a16be1b8aa82fb794",
-    "config.json": "e278696279b00dbc19b276b994ac43b22d82ceabb880b723e6ea6a076b3dcd38",
+    "asset.blend": "b169228f0fd923a698b3e33d1fcdc5f556d52f49d6e9fa1bf88a0a06ae9e333a",
+    "asset.glb": "030a82849400efa72ff42f60dc54f98288ecc1de839d36a612d40192f52980b5",
+    "config.json": "a278d5d2d02d75d889aee56eae7488d228a9f3e81db2bede4b01e0d094adf39a",
     "metadata.json": "b355df16a75cb05333945cea65490447ad4301b053f426e61ff21864aa22b992",
-    "renders/front.png": "0e587a4c998899f213d133677aaeb308610277d53481b9882c8179493bd2e145",
-    "renders/isometric.png": "071157a3c2939eb41440c78f5ec0c4036de84290d0b049df16a5b6f2a5955c34",
-    "renders/side.png": "6c905c5cc484113d59778e943d4a731a683458d78086f75914645829c2b8d5d6",
+    "renders/front.png": "a4b8830d7bb111f9621305cfdb0cdd26958047f6a5eae2237e52e3e645dc0495",
+    "renders/isometric.png": "b104ac182d62ff2117ffc563a4e0046b202acb691cb263613484d8c78d79c536",
+    "renders/side.png": "b3a23b32498f4cd0ac546be0066a3400ff90488b851006bc129876e8f4bc554d",
+    "review/appearance-validation.json": "fcdcc302c906f45cb9bef0435efe287a524e3c5a298fa02791deaf1a30217991",
     "review/favicon-chromium-dark-32.png": "1ce19d02d982377c87a3fd4c842bd6b3d221cc1806c7aa23e96aed0f77592b1e",
     "review/favicon-chromium-light-32.png": "7c29ed1af55d94739c48c5395fb63e376ab9f0865111e40062eca8208c88d121",
     "review/favicon-dark.png": "fea82a945eeca145dd80c191b8cb51e45ac3ca94f1dfdc779c670f6c1bade882",
@@ -26,12 +27,12 @@
     "review/favicon-validation.json": "d6a3242c19020ffdd400f2e3b3f4de58d4f7457b04914a3aa91dc34dc293589b",
     "review/favicon-webkit-dark-32.png": "b480b39a914466e3a5c6c09f34e90b8d5a4ebec86f1deca3316cfffe30107c0c",
     "review/favicon-webkit-light-32.png": "0865f22248dc9416de17c65e0acb6afe8666a6d71f999ac151e6cd1c19fa5e0c",
-    "review/previews.png": "c27c88cb7b0808de421834c48764e6bea24d1d78d7f162b01bfb4c94840ff8cd",
-    "review/small-sizes.png": "3a650fad456b2e34041d299c95530bb2b96087b144daeafd899d3824dec21737",
-    "web/export.json": "b8467514fc039da77f51698e8695c7f20aea03a8b8fb6ea58b12e7c6210f6601",
+    "review/previews.png": "eeaf1e17bce928c105b7c45a3c2c62bf7a9f7e342c7b61dbefddc675817837bd",
+    "review/small-sizes.png": "4f773bc05e6072ba5388673424a746bfcf42644ebea664be4e98d1e0834770b0",
+    "web/export.json": "d600986e8e7a50f005dac552d41d43ce796270f3eaa031cf0d431ceb5e97eef8",
     "web/favicon.svg": "34e514e0c65acf7a465d3a1ea66a24f43c43f6dac8b3c799df3412478aabbec6",
-    "web/gl-mark.png": "51434e72e85376aa526078e9de88e7191b68e8432cbdc59ef8c873bd9e7acab1",
-    "web/gl-mark.webp": "096c397dbe5bb3e84fa619e21b2dad3b91a28de588d1b57c0b8d75d70cedd710"
+    "web/gl-mark.png": "dc59d785ca95d47e145e9cb3d1f3d6d45b2306184e96fdb8f5ac574c0f3d74a1",
+    "web/gl-mark.webp": "9b8b01bcd98a5b71988fbecc4b6bd5a1efa63637c729e34b1843e5c01dbb432f"
   },
   "variant": "original"
 }
