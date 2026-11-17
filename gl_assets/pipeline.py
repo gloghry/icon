@@ -7,7 +7,7 @@ import tempfile
 
 from .common.export import write_glb, write_json
 from .common.model import AXES
-from .common.camera import direction
+from .common.camera import direction, framing
 from .common.render import CAMERAS, write_png
 from .registry import validate_config
 
@@ -52,7 +52,8 @@ def generate(variant, output_root="generated", seed=None, config=None, backend=N
                     raise ValueError(f"Unknown camera: {camera}")
                 path = stage / "renders" / f"{camera}.png"
                 if backend is None:
-                    write_png(path, asset, camera, render.get("size", 512), direction(effective, camera))
+                    write_png(path, asset, camera, render.get("size", 512),
+                              direction(effective, camera), framing(effective, camera))
                 else:
                     backend.render(path, camera, render.get("size", 512))
         if "blend" in outputs:

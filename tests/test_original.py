@@ -3,7 +3,7 @@ from collections import Counter
 import random
 import unittest
 
-from gl_assets.common.camera import direction
+from gl_assets.common.camera import direction, framing
 from gl_assets.registry import discover
 
 
@@ -79,3 +79,22 @@ class OriginalSculptureTests(unittest.TestCase):
         self.assertGreater(right[1], 0)
         self.assertGreater(up[1], 0)
         self.assertGreater(right[0], 0)  # G's X direction remains readable.
+
+    def test_saved_framing_is_optional_and_only_applies_to_three_quarter(self):
+        camera = self.config['render']['camera']
+        self.assertEqual(framing(self.config, 'isometric'),
+                         (tuple(camera['target']), camera['ortho_scale']))
+        for preset in ('front', 'side', 'top'):
+            self.assertIsNone(framing(self.config, preset))
+        del camera['target'], camera['ortho_scale']
+        self.assertIsNone(framing(self.config, 'isometric'))
+
+    def test_invalid_saved_framing_rejected(self):
+        for field, values in [('target', [None, [0, 1], [0, True, 2], [0, 1, float('nan')]]),
+                              ('ortho_scale', [None, 0, -1, True, float('inf')])]:
+            for value in values:
+                with self.subTest(field=field, value=value):
+                    config = copy.deepcopy(self.config)
+                    config['render']['camera'][field] = value
+                    with self.assertRaises(ValueError):
+                        framing(config, 'isometric')

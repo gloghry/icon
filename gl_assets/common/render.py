@@ -22,7 +22,7 @@ def normalized(v):
     return tuple(x / length for x in v)
 
 
-def write_png(path, asset, camera="isometric", size=512, direction=None):
+def write_png(path, asset, camera="isometric", size=512, direction=None, framing=None):
     if camera not in CAMERAS:
         raise ValueError(f"Unknown camera: {camera}")
     if isinstance(size, bool) or not isinstance(size, int) or not 16 <= size <= 4096:
@@ -34,6 +34,10 @@ def write_png(path, asset, camera="isometric", size=512, direction=None):
     xs, ys = [dot(p, right) for p in points], [dot(p, up) for p in points]
     scale = 0.8 * size / max(max(xs)-min(xs), max(ys)-min(ys), 1e-9)
     cx, cy = (min(xs)+max(xs))/2, (min(ys)+max(ys))/2
+    if framing:
+        target, ortho_scale = framing
+        scale = size / ortho_scale
+        cx, cy = dot(target, right), dot(target, up)
 
     def project(p):
         return (size/2 + (dot(p, right)-cx)*scale,

@@ -5,7 +5,7 @@ import bmesh
 import bpy
 from mathutils import Vector
 
-from .camera import direction
+from .camera import direction, framing
 from .export import strip_png_metadata
 from .model import Asset, Mesh
 
@@ -147,12 +147,17 @@ class BlenderBackend:
         xs, ys = [p.dot(right) for p in points], [p.dot(up) for p in points]
         target = self.center + right*((max(xs)+min(xs))/2-self.center.dot(right))
         target += up*((max(ys)+min(ys))/2-self.center.dot(up))
+        saved_framing = framing(self.config, preset)
+        if saved_framing:
+            target = Vector(saved_framing[0])
         self.camera.location = target + forward*30
         self.camera.rotation_euler = (-forward).to_track_quat("-Z", "Y").to_euler()
         padding = self.config.get("render", {}).get("padding", 0.08)
         if not isinstance(padding, (int, float)) or not 0 <= padding < 0.4:
             raise ValueError("render.padding must be between 0 and 0.4")
         self.camera.data.ortho_scale = max(max(xs)-min(xs), max(ys)-min(ys))/(1-2*padding)
+        if saved_framing:
+            self.camera.data.ortho_scale = saved_framing[1]
         scene.render.resolution_x = scene.render.resolution_y = size
         scene.camera.data.lens = 50
 

@@ -1,9 +1,9 @@
 {
   "crop": [
-    142,
-    48,
-    498,
-    592
+    127,
+    27,
+    502,
+    581
   ],
   "display_height": 52,
   "display_width": 32,
@@ -14,16 +14,16 @@
       "sha256": "fc9dfac04db9ff20603c401a4c49ad0f41fed62d3708daa763f590fd493d80a7"
     },
     "gl-mark.png": {
-      "bytes": 15401,
-      "sha256": "f41aa13ca7033b3cb0824c3a72a1728b7cc49b2ce81600d3488522773875dff6"
+      "bytes": 14704,
+      "sha256": "51434e72e85376aa526078e9de88e7191b68e8432cbdc59ef8c873bd9e7acab1"
     },
     "gl-mark.webp": {
-      "bytes": 4966,
-      "sha256": "0f22eb6261f3c6efc82a0241234cecb98241912013ab29d5e1e7e2bc0011b964"
+      "bytes": 4850,
+      "sha256": "096c397dbe5bb3e84fa619e21b2dad3b91a28de588d1b57c0b8d75d70cedd710"
     }
   },
   "height": 208,
-  "source_render_sha256": "772b00f5258aafd9ee39b03db9919206edff1fc71fc6499e6d8de8487975fafd",
+  "source_render_sha256": "071157a3c2939eb41440c78f5ec0c4036de84290d0b049df16a5b6f2a5955c34",
   "variant": "original",
   "webp_quality": 88,
   "width": 128

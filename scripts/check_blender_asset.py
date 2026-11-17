@@ -8,6 +8,7 @@ from mathutils import Vector
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from gl_assets.common.blender import topology
+from gl_assets.common.camera import direction, framing
 
 config = json.loads(Path(bpy.data.filepath).with_name("config.json").read_text())
 d = config["dimensions"]
@@ -20,6 +21,14 @@ check = topology(mesh)
 assert check["components"] == 1 and check["non_manifold_edges"] == 0 and check["volume"] > 0, check
 assert len(obj.data.materials) == 1
 assert bpy.context.scene.camera.data.type == "ORTHO"
+camera = bpy.context.scene.camera
+forward = camera.matrix_world.to_quaternion() @ Vector((0, 0, 1))
+assert (forward - Vector(direction(config, "isometric"))).length < 1e-6, "Saved camera angle differs from config"
+saved_framing = framing(config, "isometric")
+if saved_framing:
+    target, scale = saved_framing
+    assert (camera.location - forward*30 - Vector(target)).length < 1e-5, "Saved camera target differs from config"
+    assert abs(camera.data.ortho_scale - scale) < 1e-5, "Saved camera span differs from config"
 s, w, e = d["stroke"], d["g_width"], d["g_elevation"]
 def hit(x, z):
     return evaluated.ray_cast(Vector((x, -10, z)), Vector((0, 1, 0)))[0]
