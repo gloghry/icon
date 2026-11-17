@@ -124,8 +124,8 @@ variant's source: its G retains the three clear gaps and only its right stem
 descends, with a short diagonal foot. SVG colors respond to the browser's light
 or dark preference. This is an optical simplification, not another 3D variant.
 
-Copy only the reviewed PNG/WebP/SVG into the website, preserving SHA-256 content
-provenance. Keep private source revisions inside the source workflow. Do not copy
+Copy only the reviewed PNG/WebP/SVG into the website, preserving the source
+repository, asset commit, source directory and SHA-256 content hashes. Do not copy
 .blend files, generator code, references, or review images into the website's
 published assets. Review header screenshots before merging or publishing the integration.
 
