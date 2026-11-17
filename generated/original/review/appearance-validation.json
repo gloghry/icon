@@ -1,0 +1,39 @@
+{
+  "appearance": "Metallic BSDF F82 / MULTI_GGX; four configured area lights",
+  "camera": "Preserved approved azimuth/elevation, target and orthographic span",
+  "cross_version_limit": "Comparison uses the pinned renderer for both files; cross-version pixel identity is not claimed",
+  "favicon": "Preserved merged flat SVG from issue #15",
+  "geometry": "Mesh binary unchanged; GLB material factors updated",
+  "legacy_defaults": "Previous material/lighting still reproduce the previous GLB bytes",
+  "renderer": "Blender 4.5.3 LTS / Cycles CPU, four threads",
+  "saved_scene_comparison": {
+    "different_pixels": 0,
+    "max_rgba_difference": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "mean_rgba_difference": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "resolution": [
+      128,
+      128
+    ],
+    "samples": 48
+  },
+  "topology": [
+    {
+      "components": 1,
+      "edges": 1170,
+      "faces": 628,
+      "non_manifold_edges": 0,
+      "vertices": 544,
+      "volume": 20.836579966701393
+    }
+  ]
+}

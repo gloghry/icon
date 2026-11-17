@@ -62,6 +62,9 @@ the Blender F82 edge tint, bevel/displacement shader or studio lighting. Use the
 Blender renders for the exact authored appearance. The quick software preview
 also retains simpler shading.
 
+In Blender, use **Z → R** for Rendered viewport shading to see this appearance.
+Solid shading hides the material and studio lighting without removing them.
+
 ## Parameters and reproducibility
 
 Each variant owns its [configuration](gl_assets/variants/original/config.json).
