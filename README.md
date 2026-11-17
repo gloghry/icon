@@ -124,10 +124,15 @@ variant's source: its G retains the three clear gaps and only its right stem
 descends, with a short diagonal foot. SVG colors respond to the browser's light
 or dark preference. This is an optical simplification, not another 3D variant.
 
-Copy only the reviewed PNG/WebP/SVG into the website, preserving this source
-repository's commit and SHA-256 provenance. Do not copy .blend files, generator
-code, references, or review images into the website's published assets. Review
-header screenshots before merging or publishing the integration.
+Copy only the reviewed PNG/WebP/SVG into the website, preserving SHA-256 content
+provenance. Keep private source revisions inside the source workflow. Do not copy
+.blend files, generator code, references, or review images into the website's
+published assets. Review header screenshots before merging or publishing the integration.
+
+The [website publisher](docs/website-publishing.md) follows the Resume repository
+pattern: an enabled master workflow proposes these static files in a website PR
+for review. It never merges or deploys, and also works from a private icon repo.
+See that guide for the credential setup, dry-run command and first-run checks.
 
 ## Add a variant
 
