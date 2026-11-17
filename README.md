@@ -46,6 +46,22 @@ modifiers, one material, lighting, and the three-quarter camera. The build
 checks a single connected manifold solid with positive volume. GLB rotates
 authoring `(x, y, z)` to glTF Y-up `(x, z, -y)`; metadata remains Z-up, in meters.
 
+The current appearance follows Garett's saved metallic Blender scene (#16): a
+Metallic BSDF with F82 edge tint and MULTI_GGX, plus his exact four-light setup
+(rectangular key/right/left fills and a teal disk rim light). The original
+variant config records the editable node graph, socket values and links, world
+settings, and each light's transform, dimensions, spread, color and power.
+Shared Blender utilities recreate them; variants without these optional settings
+retain the previous Principled material and three-light defaults.
+
+The Bevel shader's Normal output is connected to Material Output Displacement
+in Garett's saved scene. This baseline preserves that wiring, alongside the
+existing geometry bevel and BUMP displacement mode. GLB uses standard metallic
+(1.0), roughness and base-color factors as an approximation; it cannot carry
+the Blender F82 edge tint, bevel/displacement shader or studio lighting. Use the
+Blender renders for the exact authored appearance. The quick software preview
+also retains simpler shading.
+
 ## Parameters and reproducibility
 
 Each variant owns its [configuration](gl_assets/variants/original/config.json).
@@ -79,6 +95,8 @@ seed. The original exposes:
 | `render.camera` | Three-quarter azimuth from -Y toward +X, and elevation, in degrees |
 | `render.camera.target`, `ortho_scale` | Optional saved Z-up framing target and orthographic vertical span; supply both, omit both for automatic fitting |
 | `render.size`, `samples`, `padding` | Square preview resolution, Cycles samples, margin fraction |
+| `material.shader` | Optional editable Blender node graph with supported shader nodes and explicit links |
+| `lighting.world`, `lighting.lights` | Optional world and individually configured area lights |
 
 The inner bar is centered vertically in the G opening. G width/height must
 exceed three strokes and the inner tip must leave a gap before the left back.

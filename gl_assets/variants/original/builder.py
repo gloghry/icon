@@ -34,7 +34,7 @@ def build(config, rng):
         (w - s, 0, 0, w, length, s),                     # short L foot toward +Y
     ]
     m = config["material"]
-    material = Material(m["name"], tuple(m["color"]), m["metallic"], m["roughness"])
+    material = Material(m["name"], tuple(m["color"]), m["metallic"], m["roughness"], m.get("shader"))
     # Future decorations can be separate meshes in Asset.meshes. Fundamentally
     # different variants should implement their own geometry builder.
     return Asset([block_union("GL", boxes, material)], {

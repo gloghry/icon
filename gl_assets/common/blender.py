@@ -6,6 +6,7 @@ import bpy
 from mathutils import Vector
 
 from .camera import direction, framing
+from .appearance import lighting, material_nodes
 from .export import strip_png_metadata
 from .model import Asset, Mesh
 
@@ -64,6 +65,8 @@ class BlenderBackend:
             principled.inputs["Base Color"].default_value = mesh.material.color
             principled.inputs["Metallic"].default_value = mesh.material.metallic
             principled.inputs["Roughness"].default_value = mesh.material.roughness
+            if mesh.material.shader:
+                material_nodes(material, mesh.material.shader)
             obj.data.materials.append(material)
             width = config.get("dimensions", {}).get("bevel_size", 0)
             if width:
@@ -114,21 +117,9 @@ class BlenderBackend:
         scene.view_settings.view_transform = "AgX"
         scene.view_settings.look = "AgX - Medium High Contrast"
         scene.world.use_nodes = True
-        scene.world.node_tree.nodes["Background"].inputs["Color"].default_value = (0.65, 0.72, 0.85, 1)
-        scene.world.node_tree.nodes["Background"].inputs["Strength"].default_value = 0.3
         bounds = self.asset.bounds
         self.center = Vector([(a+b)/2 for a,b in zip(bounds["min"], bounds["max"])])
-        for name, position, energy, size in [
-            ("Key softbox", (-4, -7, 12), 1300, 7),
-            ("Right fill", (9, -2, 7), 450, 5),
-            ("Rear edge", (-2, 7, 10), 900, 5),
-        ]:
-            light = bpy.data.lights.new(name, "AREA")
-            light.energy, light.shape, light.size = energy, "DISK", size
-            obj = bpy.data.objects.new(name, light)
-            scene.collection.objects.link(obj)
-            obj.location = position
-            obj.rotation_euler = (self.center-obj.location).to_track_quat("-Z", "Y").to_euler()
+        lighting(scene, self.config.get("lighting", {}), self.center)
         camera = bpy.data.cameras.new("Orthographic")
         camera.type = "ORTHO"
         self.camera = bpy.data.objects.new("Orthographic", camera)
