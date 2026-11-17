@@ -1,0 +1,79 @@
+name: Static GL website proposal
+
+on:
+  push:
+    branches: [master]
+    paths: &export_paths
+      - 'generated/original/**'
+      - 'gl_assets/**'
+      - 'scripts/export_web.py'
+      - 'scripts/export_website.py'
+      - 'scripts/publish_website.py'
+      - 'tests/**'
+      - '.github/workflows/publish-website.yml'
+  pull_request:
+    branches: [master]
+    paths: *export_paths
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: icon-static-website
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Validate website export
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Test asset handoff and publisher
+        run: python3 -m unittest discover -s tests -v
+      - name: Stage exact prebuilt website files
+        run: python3 scripts/export_website.py --destination "$RUNNER_TEMP/website-export"
+      - name: Dry-run proposal without publishing credentials
+        run: python3 scripts/publish_website.py --dry-run --export "$RUNNER_TEMP/website-export" --source-sha "$GITHUB_SHA"
+      - name: Save only the static website bundle
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: static-gl-website
+          path: |
+            ${{ runner.temp }}/website-export/assets/images/gl/gl-mark.png
+            ${{ runner.temp }}/website-export/assets/images/gl/gl-mark.webp
+            ${{ runner.temp }}/website-export/assets/images/gl/favicon.svg
+            ${{ runner.temp }}/website-export/docs/gl-mark-provenance.json
+            ${{ runner.temp }}/website-export/docs/gl-mark.md
+            ${{ runner.temp }}/website-export/manifest.json
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: build
+    if: github.repository == 'gloghry/icon' && github.ref == 'refs/heads/master' && github.event_name != 'pull_request' && vars.ICON_WEBSITE_PUBLISH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: static-gl-website
+          path: ${{ runner.temp }}/website-export
+      - name: Check publishing configuration
+        env:
+          WEBSITE_TOKEN: ${{ secrets.WEBSITE_PUBLISH_TOKEN }}
+        run: test -n "$WEBSITE_TOKEN" || { echo 'Missing WEBSITE_PUBLISH_TOKEN'; exit 1; }
+      - name: Propose a website PR
+        env:
+          WEBSITE_TOKEN: ${{ secrets.WEBSITE_PUBLISH_TOKEN }}
+          SOURCE_TOKEN: ${{ github.token }}
+        run: python3 scripts/publish_website.py --export "$RUNNER_TEMP/website-export" --source-sha "$GITHUB_SHA"
+      - name: Record failure
+        if: failure()
+        run: echo 'Static GL proposal failed. This workflow does not deploy the website. Fix configuration and rerun master.' >> "$GITHUB_STEP_SUMMARY"
